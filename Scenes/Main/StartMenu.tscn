@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Assets/UI/Fonts/Urbanist-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/Main/StartMenu.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI/Background/start-screen.jpg" type="Texture" id=3]
+[ext_resource path="res://Resources/Themes/StartScreenTheme.tres" type="Theme" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 40
+font_data = ExtResource( 1 )
+
+[node name="StartMenu" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Background" type="TextureButton" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PressToStartLabel" type="Label" parent="Background"]
+margin_left = 233.0
+margin_top = 800.0
+margin_right = 1685.0
+margin_bottom = 1019.0
+size_flags_horizontal = 3
+theme = ExtResource( 4 )
+custom_fonts/font = SubResource( 1 )
+text = "TAP ANYWHERE TO START"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="M" type="MarginContainer" parent="Background"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 880.0
+rect_min_size = Vector2( 1920, 200 )
+mouse_filter = 1
+theme = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VB" type="VBoxContainer" parent="Background/M"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 1890.0
+margin_bottom = 170.0
+alignment = 2
+
+[node name="HB" type="HBoxContainer" parent="Background/M/VB"]
+margin_top = 40.0
+margin_right = 1860.0
+margin_bottom = 140.0
+
+[node name="VBLeft" type="VBoxContainer" parent="Background/M/VB/HB"]
+margin_right = 199.0
+margin_bottom = 100.0
+
+[node name="GameVersLabel" type="Label" parent="Background/M/VB/HB/VBLeft"]
+margin_right = 199.0
+margin_bottom = 31.0
+text = "<GAME_VERS>"
+
+[node name="ServerLabel" type="Label" parent="Background/M/VB/HB/VBLeft"]
+margin_top = 35.0
+margin_right = 199.0
+margin_bottom = 100.0
+mouse_filter = 1
+theme = ExtResource( 4 )
+text = "<SERVER_CODE>
+<SERVER_MSG>"
+
+[node name="VBRight" type="VBoxContainer" parent="Background/M/VB/HB"]
+margin_left = 1655.0
+margin_right = 1860.0
+margin_bottom = 100.0
+size_flags_horizontal = 10
+alignment = 2
+
+[node name="LogoutButton" type="Button" parent="Background/M/VB/HB/VBRight"]
+margin_top = 45.0
+margin_right = 205.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 205, 55 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource( 4 )
+text = "LOGOUT"
+
+[connection signal="pressed" from="Background/M/VB/HB/VBRight/LogoutButton" to="." method="_on_LogoutButton_pressed"]
