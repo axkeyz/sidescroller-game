@@ -8,5 +8,5 @@ func on_startgame_pressed():
 	get_node("StartMenu").queue_free()
 	
 	# Add Lobby Scene
-	var lobby_scene = load("res://Scenes/Map/Test/PinkDesert.tscn").instance()
+	var lobby_scene = load("res://Scenes/Main/LobbyScene.tscn").instance()
 	add_child(lobby_scene)
