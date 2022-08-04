@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Map/Test/PinkDesert.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Environment/PinkDesert/layer04_clouds.png" type="Texture" id=2]
@@ -7,8 +7,9 @@
 [ext_resource path="res://Assets/Environment/PinkDesert/layer01_ground.png" type="Texture" id=5]
 [ext_resource path="res://Assets/Environment/PinkDesert/layer05_rocks.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Environment/PinkDesert/layer03_trees.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Hero/Baxton.tscn" type="PackedScene" id=8]
 
-[node name="ParallaxBackground" type="ParallaxBackground"]
+[node name="PinkDesert" type="ParallaxBackground"]
 script = ExtResource( 1 )
 
 [node name="ParallaxLayer6" type="ParallaxLayer" parent="."]
@@ -59,3 +60,5 @@ motion_mirroring = Vector2( 1920, 0 )
 [node name="Sprite" type="Sprite" parent="ParallaxLayer"]
 position = Vector2( 951, 550 )
 texture = ExtResource( 5 )
+
+[node name="Baxton" parent="." instance=ExtResource( 8 )]
