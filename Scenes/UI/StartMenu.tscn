@@ -1,17 +1,21 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Resources/Themes/MainTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/UI/Background/start-screen.jpg" type="Texture" id=2]
+[ext_resource path="res://Scenes/UI/StartMenu.gd" type="Script" id=3]
 
 [node name="StartMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Background" type="TextureRect" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
+[node name="Background" type="TextureButton" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture_normal = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -20,3 +24,49 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VB" type="VBoxContainer" parent="M"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 1890.0
+margin_bottom = 1050.0
+alignment = 2
+
+[node name="HB" type="HBoxContainer" parent="M/VB"]
+margin_top = 903.0
+margin_right = 1860.0
+margin_bottom = 1020.0
+
+[node name="HBLeft" type="HBoxContainer" parent="M/VB/HB"]
+margin_right = 237.0
+margin_bottom = 117.0
+
+[node name="ServerLabel" type="Label" parent="M/VB/HB/HBLeft"]
+margin_right = 237.0
+margin_bottom = 117.0
+text = "<GAME_VERS>
+<SERVER_CODE>
+<SERVER_MSG>"
+
+[node name="HBRight" type="HBoxContainer" parent="M/VB/HB"]
+margin_left = 241.0
+margin_right = 1860.0
+margin_bottom = 117.0
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="LogoutButton" type="Button" parent="M/VB/HB/HBRight"]
+margin_left = 1414.0
+margin_top = 62.0
+margin_right = 1619.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 205, 55 )
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource( 1 )
+text = "LOGOUT"
+
+[connection signal="pressed" from="M/VB/HB/HBRight/LogoutButton" to="." method="_on_LogoutButton_pressed"]
