@@ -1,20 +1,41 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://Assets/UI/Background/Lobby.png" type="Texture" id=1]
-[ext_resource path="res://Resources/Themes/LobbyTheme.tres" type="Theme" id=2]
+[ext_resource path="res://Resources/Fonts/Cascadia50.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://Resources/Themes/LightTheme.tres" type="Theme" id=2]
 [ext_resource path="res://Resources/Themes/StartScreenTheme.tres" type="Theme" id=3]
+[ext_resource path="res://Resources/Fonts/CascadiaReg40.tres" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/UI/Fonts/CascadiaCodePL-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Scenes/UI/CurrencyDisplay.tscn" type="PackedScene" id=6]
 
-[sub_resource type="StyleBoxLine" id=1]
-color = Color( 1, 1, 1, 1 )
-thickness = 2
+[sub_resource type="DynamicFont" id=1]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_bottom = 25.0
+bg_color = Color( 0.4, 0.415686, 0.52549, 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 25
+font_data = ExtResource( 5 )
+
+[sub_resource type="Theme" id=6]
+default_font = SubResource( 5 )
+Label/colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 40
+font_data = ExtResource( 4 )
 
 [node name="LobbyScene" type="Node2D"]
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="Background" type="Panel" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 1920, 1080 )
-texture = ExtResource( 1 )
+theme = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -37,149 +58,143 @@ margin_top = 30.0
 margin_right = 1890.0
 margin_bottom = 1050.0
 
-[node name="HeaderCanvas" type="CanvasLayer" parent="LobbyUI/M/V"]
-
-[node name="HeaderLobbyH" type="HBoxContainer" parent="LobbyUI/M/V/HeaderCanvas"]
-margin_left = 30.0
-margin_top = 30.0
-margin_right = 1890.0
-margin_bottom = 73.0
-custom_constants/separation = 20
-alignment = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CurrencyButton" type="Button" parent="LobbyUI/M/V/HeaderCanvas/HeaderLobbyH"]
-margin_left = 1100.0
-margin_right = 1593.0
-margin_bottom = 43.0
-mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
-text = "[GOLD & PREMIUM CURRENCY]"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Control" type="Control" parent="LobbyUI/M/V/HeaderCanvas/HeaderLobbyH"]
-margin_left = 1613.0
-margin_right = 1663.0
-margin_bottom = 43.0
-rect_min_size = Vector2( 50, 0 )
-
-[node name="InventoryButton" type="Button" parent="LobbyUI/M/V/HeaderCanvas/HeaderLobbyH"]
-margin_left = 1683.0
-margin_right = 1734.0
-margin_bottom = 43.0
-mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
-text = "[IN]"
-
-[node name="ChatButton" type="Button" parent="LobbyUI/M/V/HeaderCanvas/HeaderLobbyH"]
-margin_left = 1754.0
-margin_right = 1799.0
-margin_bottom = 43.0
-mouse_default_cursor_shape = 2
-theme = ExtResource( 2 )
-text = "[C]"
-
-[node name="SettingsButton" type="Button" parent="LobbyUI/M/V/HeaderCanvas/HeaderLobbyH"]
-margin_left = 1819.0
+[node name="Header" type="HBoxContainer" parent="LobbyUI/M/V"]
 margin_right = 1860.0
-margin_bottom = 43.0
+margin_bottom = 127.0
+custom_constants/separation = 10
+
+[node name="UserLevelButton" type="Button" parent="LobbyUI/M/V/Header"]
+margin_right = 125.0
+margin_bottom = 127.0
+rect_min_size = Vector2( 125, 125 )
 mouse_default_cursor_shape = 2
 theme = ExtResource( 2 )
-text = "[S]"
+custom_colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "24"
 
-[node name="TextureRect" type="HSeparator" parent="LobbyUI/M/V/HeaderCanvas"]
-margin_left = 720.0
-margin_top = 85.0
-margin_right = 1920.0
-margin_bottom = 89.0
-rect_min_size = Vector2( 1200, 0 )
-custom_styles/separator = SubResource( 1 )
+[node name="UserStatsContainer" type="VBoxContainer" parent="LobbyUI/M/V/Header"]
+margin_left = 135.0
+margin_right = 495.0
+margin_bottom = 127.0
+
+[node name="UsernameButton" type="Button" parent="LobbyUI/M/V/Header/UserStatsContainer"]
+margin_right = 360.0
+margin_bottom = 92.0
+rect_min_size = Vector2( 300, 0 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 2 )
+custom_styles/normal = SubResource( 2 )
+align = 0
+
+[node name="M" type="MarginContainer" parent="LobbyUI/M/V/Header/UserStatsContainer/UsernameButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+custom_constants/margin_right = 5
+custom_constants/margin_top = 0
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LobbyUI/M/V"]
-margin_right = 1860.0
-margin_bottom = 1020.0
+[node name="H" type="HBoxContainer" parent="LobbyUI/M/V/Header/UserStatsContainer/UsernameButton/M"]
+margin_left = 15.0
+margin_right = 355.0
+margin_bottom = 92.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="VBoxContainer" parent="LobbyUI/M/V/Header/UserStatsContainer/UsernameButton/M/H"]
+margin_right = 184.0
+margin_bottom = 92.0
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UsernameLabel" type="Label" parent="LobbyUI/M/V/Header/UserStatsContainer/UsernameButton/M/H/V"]
+margin_top = 5.0
+margin_right = 184.0
+margin_bottom = 53.0
+mouse_filter = 1
+theme = SubResource( 6 )
+custom_colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "AXISKEYZ"
+
+[node name="UserIDLabel" type="Label" parent="LobbyUI/M/V/Header/UserStatsContainer/UsernameButton/M/H/V"]
+margin_top = 57.0
+margin_right = 184.0
+margin_bottom = 87.0
+mouse_filter = 1
+theme = SubResource( 6 )
+text = "#0123456789"
+
+[node name="PCStatsSection" type="HBoxContainer" parent="LobbyUI/M/V/Header/UserStatsContainer"]
+margin_top = 96.0
+margin_right = 360.0
+margin_bottom = 127.0
 size_flags_vertical = 3
-
-[node name="CanvasLayer" type="VBoxContainer" parent="LobbyUI/M/V/HBoxContainer"]
-margin_right = 400.0
-margin_bottom = 1020.0
+custom_constants/separation = 15
 alignment = 1
 
-[node name="VBoxContainer" type="TabContainer" parent="LobbyUI/M/V/HBoxContainer/CanvasLayer"]
-margin_top = 372.0
-margin_right = 400.0
-margin_bottom = 647.0
-rect_min_size = Vector2( 400, 275 )
+[node name="BatteryLabel" type="Label" parent="LobbyUI/M/V/Header/UserStatsContainer/PCStatsSection"]
+margin_right = 45.0
+margin_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
+text = "[B]"
+valign = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="LobbyUI/M/V/HBoxContainer"]
-margin_left = 404.0
-margin_right = 1860.0
-margin_bottom = 1020.0
+[node name="WifiLabel" type="Label" parent="LobbyUI/M/V/Header/UserStatsContainer/PCStatsSection"]
+margin_left = 60.0
+margin_right = 105.0
+margin_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
+text = "[W]"
+valign = 1
+
+[node name="DateTimeLabel" type="Label" parent="LobbyUI/M/V/Header/UserStatsContainer/PCStatsSection"]
+margin_left = 120.0
+margin_right = 360.0
+margin_bottom = 31.0
 size_flags_horizontal = 3
-custom_constants/margin_top = 100
-custom_constants/margin_bottom = 100
+size_flags_vertical = 1
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
+text = "07/08/2022 18:59"
+valign = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LobbyUI/M/V/HBoxContainer/MarginContainer"]
+[node name="UserCurrencyContainer" type="MarginContainer" parent="LobbyUI/M/V/Header"]
+margin_left = 505.0
+margin_right = 1860.0
+margin_bottom = 127.0
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyUI/M/V/Header/UserCurrencyContainer"]
 margin_left = 30.0
-margin_top = 100.0
-margin_right = 1426.0
-margin_bottom = 920.0
+margin_top = 30.0
+margin_right = 1325.0
+margin_bottom = 97.0
+custom_constants/separation = 30
 alignment = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer"]
-margin_left = 982.0
-margin_right = 1396.0
-margin_bottom = 820.0
-alignment = 2
+[node name="CurrencyDisplayButton" parent="LobbyUI/M/V/Header/UserCurrencyContainer/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 239.0
+margin_right = 571.0
 
-[node name="GridContainer" type="GridContainer" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
-margin_top = 711.0
-margin_right = 414.0
-margin_bottom = 820.0
-custom_constants/vseparation = 35
-custom_constants/hseparation = 35
-columns = 3
+[node name="CurrencyDisplayButton2" parent="LobbyUI/M/V/Header/UserCurrencyContainer/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 601.0
+margin_right = 933.0
 
-[node name="Button" type="Button" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
-margin_right = 78.0
-margin_bottom = 37.0
-text = "SHOP"
-
-[node name="Button2" type="Button" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
-margin_left = 113.0
-margin_right = 233.0
-margin_bottom = 37.0
-text = "MISSIONS"
-
-[node name="Button3" type="Button" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
-margin_left = 268.0
-margin_right = 414.0
-margin_bottom = 37.0
-text = "SUMMON"
-
-[node name="Button4" type="Button" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
-margin_top = 72.0
-margin_right = 78.0
-margin_bottom = 109.0
-text = "GUILD"
-
-[node name="Button5" type="Button" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
-margin_left = 113.0
-margin_top = 72.0
-margin_right = 233.0
-margin_bottom = 109.0
-text = "ARENA"
-
-[node name="Button6" type="Button" parent="LobbyUI/M/V/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/GridContainer"]
-margin_left = 268.0
-margin_top = 72.0
-margin_right = 414.0
-margin_bottom = 109.0
-text = "ADVENTURE"
+[node name="CurrencyDisplayButton3" parent="LobbyUI/M/V/Header/UserCurrencyContainer/HBoxContainer" instance=ExtResource( 6 )]
+margin_left = 963.0
+margin_right = 1295.0
