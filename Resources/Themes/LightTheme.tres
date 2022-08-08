@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=12 format=2]
+[gd_resource type="Theme" load_steps=13 format=2]
 
 [ext_resource path="res://Assets/UI/Fonts/CascadiaCodePL-SemiLight.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Assets/UI/Fonts/CascadiaCodePL-Regular.ttf" type="DynamicFontData" id=2]
@@ -14,6 +14,9 @@ bg_color = Color( 0.4, 0.415686, 0.52549, 1 )
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.580392, 0.482353, 0.827451, 1 )
+
+[sub_resource type="StyleBoxLine" id=10]
+color = Color( 0.4, 0.415686, 0.52549, 1 )
 
 [sub_resource type="DynamicFont" id=8]
 size = 25
@@ -44,6 +47,7 @@ Button/styles/focus = SubResource( 3 )
 Button/styles/hover = SubResource( 4 )
 Button/styles/normal = SubResource( 5 )
 Button/styles/pressed = SubResource( 6 )
+HSeparator/styles/separator = SubResource( 10 )
 Label/colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
 Label/fonts/font = SubResource( 8 )
 Label/styles/normal = SubResource( 9 )
