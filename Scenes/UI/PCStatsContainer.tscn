@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Resources/Themes/LightTheme.tres" type="Theme" id=1]
+
+[node name="PCStatsContainer" type="HBoxContainer"]
+margin_top = 96.0
+margin_right = 360.0
+margin_bottom = 127.0
+size_flags_vertical = 3
+custom_constants/separation = 15
+alignment = 1
+
+[node name="BatteryLabel" type="Label" parent="."]
+margin_right = 45.0
+margin_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
+text = "[B]"
+valign = 1
+
+[node name="WifiLabel" type="Label" parent="."]
+margin_left = 60.0
+margin_right = 105.0
+margin_bottom = 31.0
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
+text = "[W]"
+valign = 1
+
+[node name="DateTimeLabel" type="Label" parent="."]
+margin_left = 120.0
+margin_right = 360.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
+text = "07/08/2022 18:59"
+valign = 1

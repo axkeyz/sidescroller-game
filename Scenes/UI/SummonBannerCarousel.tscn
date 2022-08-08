@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/Heroes/Baxton/summonbanner.png" type="Texture" id=1]
+[ext_resource path="res://Assets/Heroes/Baxton/summonbanner2.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/UI/SummonBannerCarousel.gd" type="Script" id=3]
+
+[node name="SummonBannerCarousel" type="VBoxContainer"]
+margin_right = 606.0
+margin_bottom = 212.0
+rect_min_size = Vector2( 614, 211 )
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs" type="Tabs" parent="."]
+margin_right = 614.0
+margin_bottom = 211.0
+rect_min_size = Vector2( 614, 211 )
+drag_to_rearrange_enabled = true
+
+[node name="SummonBannerImage" type="TextureRect" parent="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 614, 211 )
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SummonBannerImage2" type="TextureRect" parent="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 614, 211 )
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tabs2" type="Tabs" parent="."]
+margin_top = 215.0
+margin_right = 614.0
+margin_bottom = 426.0
+rect_min_size = Vector2( 614, 211 )
+drag_to_rearrange_enabled = true
+
+[node name="SummonBannerImage" type="TextureRect" parent="Tabs2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 614, 211 )
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SummonBannerImage2" type="TextureRect" parent="Tabs2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 614, 211 )
+mouse_filter = 0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -4,26 +4,26 @@
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Resources/Themes/LightThemeLayer2.tres" type="Theme" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=1]
+[sub_resource type="StyleBoxEmpty" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=2]
+[sub_resource type="StyleBoxEmpty" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=3]
 
-[sub_resource type="StyleBoxEmpty" id=4]
+[sub_resource type="StyleBoxEmpty" id=9]
 
-[sub_resource type="StyleBoxEmpty" id=5]
+[sub_resource type="StyleBoxEmpty" id=10]
 
 [node name="CurrencyDisplayButton" type="Button"]
 margin_right = 332.0
 margin_bottom = 67.0
 rect_min_size = Vector2( 332, 67 )
 mouse_default_cursor_shape = 2
-custom_styles/hover = SubResource( 1 )
-custom_styles/pressed = SubResource( 2 )
+custom_styles/hover = SubResource( 7 )
+custom_styles/pressed = SubResource( 8 )
 custom_styles/focus = SubResource( 3 )
-custom_styles/disabled = SubResource( 4 )
-custom_styles/normal = SubResource( 5 )
+custom_styles/disabled = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
