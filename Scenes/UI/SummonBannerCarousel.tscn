@@ -68,4 +68,8 @@ margin_right = 614.0
 margin_bottom = 230.0
 rect_min_size = Vector2( 0, 15 )
 
+[node name="TabTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="gui_input" from="BannerTabs" to="." method="_on_BannerTabs_gui_input"]
+[connection signal="timeout" from="TabTimer" to="." method="_on_TabTimer_timeout"]

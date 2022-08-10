@@ -14,7 +14,7 @@ func _ready():
 	
 	# Add tabs to $BannerTabsList and set default value
 	add_tab_to_BannerTabsList()
-	$BannerTabsList.get_child(0).grab_focus()
+	reset_BannerTabs_current_tab()
 
 # _on_BannerTabs_gui_input is called when a GUI input event 
 # happens inside $BannerTabs. It changes the active tab to
@@ -87,3 +87,10 @@ func on_click_tab_in_BannerTabsList(id):
 func reset_BannerTabs_current_tab():
 	$BannerTabs.current_tab = current_tab
 	$BannerTabsList.get_child(current_tab).grab_focus()
+	$TabTimer.start()
+
+# _on_TabTimer_timeout swipes to the next banner after $TabTimer
+# has timed out.
+func _on_TabTimer_timeout():
+	drag_x = -20
+	on_BannerTabs_swiped()
