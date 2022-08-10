@@ -1,7 +1,9 @@
 extends Node2D
 
 func _ready():
+# warning-ignore:return_value_discarded
 	get_node("StartMenu/Background").connect("pressed", self, "on_startgame_pressed")
+# warning-ignore:return_value_discarded
 	get_node("StartMenu/Background/M/VB/HB/VBRight/LogoutButton").connect("pressed", self, "on_end_game_pressed")
 
 func on_startgame_pressed():
