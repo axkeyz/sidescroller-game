@@ -2,10 +2,10 @@
 # UI element in the Lobby scene.
 extends VBoxContainer
 
-var tab = 0
+var current_tab = 0
 var max_tab_index
 var drag_start
-var drag
+var drag_x
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,7 +28,7 @@ func _on_BannerTabs_gui_input(event):
 			# Get final x-coordinate of a swipe end and
 			# subtract from the x-coordinate swipe start
 			# to find the direction of swipe along x axis
-			drag = event.get_position().x - drag_start
+			drag_x = event.get_position().x - drag_start
 			on_BannerTabs_swiped()
 
 # on_BannerTabs_swiped is called when a swipe's beginning
@@ -40,23 +40,23 @@ func on_BannerTabs_swiped():
 # calculate_current_tab calcuates the value of var tab based on
 # var drag.
 func calculate_current_tab():
-	if drag > 0:
+	if drag_x > 0:
 		# Right drag, get previous tab
-		if tab == 0:
+		if current_tab == 0:
 			# Loop back to max tab
-			tab = max_tab_index
+			current_tab = max_tab_index
 		else:
 			# Get previous tab
-			tab -= 1
+			current_tab -= 1
 	# Drag to the left
-	elif drag < 0:
+	elif drag_x < 0:
 		# Left drag, get next tab
-		if tab == max_tab_index:
+		if current_tab == max_tab_index:
 			# Loop to min tab
-			tab = 0
+			current_tab = 0
 		else:
 			# Get next tab
-			tab += 1
+			current_tab += 1
 
 # add_tab_to_BannerTabsList adds an option to $BannerTabsList
 # for every banner saved in $BannerTabs.
@@ -78,12 +78,12 @@ func add_tab_to_BannerTabsList():
 # on_click_tab_in_BannerTabsList changes the currently active
 # banner.
 func on_click_tab_in_BannerTabsList(id):
-	tab = id
+	current_tab = id
 	reset_BannerTabs_current_tab()
 
 # reset_BannerTabs_current_tab sets the currently active tab of
 # $BannerTabs and simulates a click on the corresponding button
 # (child node) in $BannerTabsList.
 func reset_BannerTabs_current_tab():
-	$BannerTabs.current_tab = tab
-	$BannerTabsList.get_child(tab).grab_focus()
+	$BannerTabs.current_tab = current_tab
+	$BannerTabsList.get_child(current_tab).grab_focus()
