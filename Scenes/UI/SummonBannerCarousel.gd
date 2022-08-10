@@ -1,3 +1,5 @@
+# SummonBannerCarousel.gd controls the SummonBannerCarousel
+# UI element in the Lobby scene.
 extends VBoxContainer
 
 var tab = 0
@@ -5,11 +7,19 @@ var max_tab_index
 var drag_start
 var drag
 
+# Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set max index of tabs
-	max_tab_index = $Tabs.get_tab_count()-1
+	max_tab_index = $BannerTabs.get_tab_count()-1
 	
-func _on_Tabs_gui_input(event):
+	# Add tabs to $BannerTabsList and set default value
+	add_tab_to_BannerTabsList()
+	$BannerTabsList.get_child(0).grab_focus()
+
+# _on_BannerTabs_gui_input is called when a GUI input event 
+# happens inside $BannerTabs. It changes the active tab to
+# the adjacent tab in the direction of the user's swipe.
+func _on_BannerTabs_gui_input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			# Get initial position of a swipe start
@@ -19,20 +29,61 @@ func _on_Tabs_gui_input(event):
 			# subtract from the x-coordinate swipe start
 			# to find the direction of swipe along x axis
 			drag = event.get_position().x - drag_start
-			on_active_tab_swiped()
+			on_BannerTabs_swiped()
 
-# on_active_tab_swiped changes the currently active tab
-# when the node is swiped.
-func on_active_tab_swiped():
+# on_BannerTabs_swiped is called when a swipe's beginning
+# is found to be on the inside of $BannerTabs.
+func on_BannerTabs_swiped():
+	calculate_current_tab()
+	reset_BannerTabs_current_tab()
+
+# calculate_current_tab calcuates the value of var tab based on
+# var drag.
+func calculate_current_tab():
 	if drag > 0:
+		# Right drag, get previous tab
 		if tab == 0:
+			# Loop back to max tab
 			tab = max_tab_index
 		else:
+			# Get previous tab
 			tab -= 1
+	# Drag to the left
 	elif drag < 0:
+		# Left drag, get next tab
 		if tab == max_tab_index:
+			# Loop to min tab
 			tab = 0
 		else:
+			# Get next tab
 			tab += 1
 
-	$Tabs.current_tab = tab
+# add_tab_to_BannerTabsList adds an option to $BannerTabsList
+# for every banner saved in $BannerTabs.
+func add_tab_to_BannerTabsList():
+	# Load button scene
+	var button = load("res://Scenes/UI/SummonBannerButton.tscn")
+	
+	# Create new summon banner button for each tab
+	var count = $BannerTabs.get_child_count()
+	for i in range(0, count):
+		# Create new instance with signal
+		var child = button.instance()
+		child.connect("pressed", self, \
+			"on_click_tab_in_BannerTabsList", [i])
+		
+		# Add instance to $BannerTabsList
+		$BannerTabsList.add_child(child)
+
+# on_click_tab_in_BannerTabsList changes the currently active
+# banner.
+func on_click_tab_in_BannerTabsList(id):
+	tab = id
+	reset_BannerTabs_current_tab()
+
+# reset_BannerTabs_current_tab sets the currently active tab of
+# $BannerTabs and simulates a click on the corresponding button
+# (child node) in $BannerTabsList.
+func reset_BannerTabs_current_tab():
+	$BannerTabs.current_tab = tab
+	$BannerTabsList.get_child(tab).grab_focus()

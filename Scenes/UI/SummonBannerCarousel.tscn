@@ -16,7 +16,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tabs" type="TabContainer" parent="."]
+[node name="BannerTabs" type="TabContainer" parent="."]
 margin_right = 614.0
 margin_bottom = 211.0
 rect_min_size = Vector2( 614, 211 )
@@ -24,7 +24,7 @@ mouse_filter = 1
 custom_styles/panel = SubResource( 1 )
 tabs_visible = false
 
-[node name="SummonBannerImage2" type="TextureRect" parent="Tabs"]
+[node name="SummonBannerImage2" type="TextureRect" parent="BannerTabs"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 614, 211 )
@@ -36,7 +36,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SummonBannerImage" type="TextureRect" parent="Tabs"]
+[node name="SummonBannerImage3" type="TextureRect" parent="BannerTabs"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_min_size = Vector2( 614, 211 )
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SummonBannerImage" type="TextureRect" parent="BannerTabs"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -49,20 +62,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="SummonBannerImage3" type="TextureRect" parent="Tabs"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 4.0
-margin_right = -4.0
-margin_bottom = -4.0
-rect_min_size = Vector2( 614, 211 )
-mouse_default_cursor_shape = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="BannerTabsList" type="HBoxContainer" parent="."]
+margin_top = 215.0
+margin_right = 614.0
+margin_bottom = 230.0
+rect_min_size = Vector2( 0, 15 )
 
-[connection signal="gui_input" from="Tabs" to="." method="_on_Tabs_gui_input"]
+[connection signal="gui_input" from="BannerTabs" to="." method="_on_BannerTabs_gui_input"]
