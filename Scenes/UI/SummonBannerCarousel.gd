@@ -1,5 +1,6 @@
 # SummonBannerCarousel.gd controls the SummonBannerCarousel
 # UI element in the Lobby scene.
+# TODO: Use Tween to animate transitions more smoothly.
 extends VBoxContainer
 
 var current_tab = 0
@@ -34,14 +35,14 @@ func _on_BannerTabs_gui_input(event):
 # on_BannerTabs_swiped is called when a swipe's beginning
 # is found to be on the inside of $BannerTabs.
 func on_BannerTabs_swiped():
-	calculate_current_tab()
+	calculate_current_tab_from_swipe()
 	reset_BannerTabs_current_tab()
 
-# calculate_current_tab calcuates the value of var tab based on
-# var drag.
-func calculate_current_tab():
+# calculate_current_tab_from_swipe calcuates the value of var 
+# tab based on var drag.
+func calculate_current_tab_from_swipe():
 	if drag_x > 0:
-		# Right drag, get previous tab
+		# Get previous tab on drag to right
 		if current_tab == 0:
 			# Loop back to max tab
 			current_tab = max_tab_index
@@ -50,7 +51,7 @@ func calculate_current_tab():
 			current_tab -= 1
 	# Drag to the left
 	elif drag_x < 0:
-		# Left drag, get next tab
+		# Get next tab on drag to left
 		if current_tab == max_tab_index:
 			# Loop to min tab
 			current_tab = 0
