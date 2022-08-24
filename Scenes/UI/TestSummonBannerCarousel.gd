@@ -14,9 +14,6 @@ onready var max_tab_index = child_count-1
 func _ready():
 	add_tab_to_BannerButtons()
 	reset_BannerButtons_current_button()
-	
-	var new_last_child = $BannerContainer/Banners.get_child(0).duplicate()
-	$BannerContainer/Banners.add_child(new_last_child)
 
 func _on_BannerContainer_scroll_ended():
 	prev_pos = $BannerContainer.scroll_horizontal
