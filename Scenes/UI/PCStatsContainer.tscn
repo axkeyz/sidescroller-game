@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Resources/Themes/LightTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Scenes/UI/PCStatsContainer.gd" type="Script" id=2]
+[ext_resource path="res://Assets/UI/Icons/battery-1.png" type="Texture" id=3]
+[ext_resource path="res://Assets/UI/Icons/battery-0.png" type="Texture" id=4]
 
 [node name="PCStatsContainer" type="HBoxContainer"]
 margin_top = 96.0
@@ -8,21 +11,24 @@ margin_right = 360.0
 margin_bottom = 127.0
 size_flags_vertical = 3
 custom_constants/separation = 15
-alignment = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="BatteryLabel" type="Label" parent="."]
-margin_right = 45.0
-margin_bottom = 31.0
-size_flags_horizontal = 0
-size_flags_vertical = 1
-theme = ExtResource( 1 )
-custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
-text = "[B]"
-valign = 1
+[node name="BatteryLabel" type="TextureProgress" parent="."]
+margin_top = 3.0
+margin_right = 30.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 30, 20 )
+size_flags_horizontal = 5
+size_flags_vertical = 4
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
 
 [node name="WifiLabel" type="Label" parent="."]
-margin_left = 60.0
-margin_right = 105.0
+margin_left = 45.0
+margin_right = 90.0
 margin_bottom = 31.0
 size_flags_horizontal = 0
 size_flags_vertical = 1
@@ -32,12 +38,12 @@ text = "[W]"
 valign = 1
 
 [node name="DateTimeLabel" type="Label" parent="."]
-margin_left = 120.0
+margin_left = 105.0
 margin_right = 360.0
 margin_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.4, 0.415686, 0.52549, 1 )
-text = "07/08/2022 18:59"
+text = "00/00/0000 00:00"
 valign = 1
