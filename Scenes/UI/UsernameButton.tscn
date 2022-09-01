@@ -31,6 +31,9 @@ mouse_default_cursor_shape = 2
 theme = ExtResource( 3 )
 custom_styles/normal = SubResource( 2 )
 align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="M" type="MarginContainer" parent="."]
 anchor_right = 1.0
@@ -68,7 +71,7 @@ mouse_filter = 1
 theme = SubResource( 6 )
 custom_colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
 custom_fonts/font = SubResource( 4 )
-text = "AXISKEYZ"
+text = "USERNAME"
 
 [node name="UserIDLabel" type="Label" parent="M/H/V"]
 margin_top = 57.0
