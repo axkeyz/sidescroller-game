@@ -1,15 +1,19 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/UI/UsernameButton.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Resources/Fonts/Cascadia50.tres" type="DynamicFontData" id=3]
+[ext_resource path="res://Assets/UI/Buttons/mission.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/Fonts/CascadiaCodePL-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Scenes/UI/UserCurrencyContainer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Resources/Themes/LightTheme.tres" type="Theme" id=5]
 [ext_resource path="res://Resources/Themes/StartScreenTheme.tres" type="Theme" id=6]
 [ext_resource path="res://Scenes/UI/PCStatsContainer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/UI/SummonBannerCarousel.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Resources/Themes/DarkPanelNoCorner.tres" type="Theme" id=9]
 [ext_resource path="res://Scenes/UI/ChatButton.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Resources/Themes/LargePanelWhite.tres" type="Theme" id=11]
+[ext_resource path="res://Resources/Themes/UtilityButtonDark.tres" type="Theme" id=12]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=4]
 size = 50
 font_data = ExtResource( 3 )
 
@@ -30,22 +34,31 @@ margin_left = 30.0
 margin_top = 30.0
 margin_right = 1890.0
 margin_bottom = 1050.0
-custom_constants/separation = 50
+custom_constants/separation = 10
 
 [node name="HeaderContainer" type="HBoxContainer" parent="M/V"]
 margin_right = 1860.0
 margin_bottom = 127.0
 custom_constants/separation = 10
 
-[node name="UserLevelButton" type="Button" parent="M/V/HeaderContainer"]
+[node name="UserLevelButton" type="Panel" parent="M/V/HeaderContainer"]
 margin_right = 125.0
 margin_bottom = 127.0
 rect_min_size = Vector2( 125, 125 )
 mouse_default_cursor_shape = 2
-theme = ExtResource( 5 )
-custom_colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
-custom_fonts/font = SubResource( 1 )
+theme = ExtResource( 9 )
+
+[node name="Label" type="Label" parent="M/V/HeaderContainer/UserLevelButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 11 )
+custom_fonts/font = SubResource( 4 )
 text = "24"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="UserStatsContainer" type="VBoxContainer" parent="M/V/HeaderContainer"]
 margin_left = 135.0
@@ -57,9 +70,10 @@ margin_bottom = 127.0
 [node name="PCStatsContainer" parent="M/V/HeaderContainer/UserStatsContainer" instance=ExtResource( 7 )]
 
 [node name="UserCurrencyContainer" parent="M/V/HeaderContainer" instance=ExtResource( 4 )]
+margin_right = 1779.0
 
 [node name="MenuButton" type="Button" parent="M/V/HeaderContainer"]
-margin_left = 1793.0
+margin_left = 1789.0
 margin_top = 30.0
 margin_right = 1860.0
 margin_bottom = 97.0
@@ -70,55 +84,98 @@ theme = ExtResource( 5 )
 text = "="
 
 [node name="BannerContainer" type="HBoxContainer" parent="M/V"]
-margin_top = 177.0
+margin_top = 137.0
 margin_right = 1860.0
-margin_bottom = 388.0
-size_flags_vertical = 0
+margin_bottom = 1020.0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="M/V/BannerContainer"]
+margin_right = 1242.0
+margin_bottom = 883.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="RHV" type="VBoxContainer" parent="M/V/BannerContainer/VBoxContainer"]
+visible = false
+margin_left = 671.0
+margin_right = 1242.0
+margin_bottom = 230.0
+size_flags_horizontal = 3
+
+[node name="CombatModesContainer" type="VBoxContainer" parent="M/V/BannerContainer/VBoxContainer/RHV"]
+margin_right = 571.0
+
+[node name="SupportModesContainer" type="VBoxContainer" parent="M/V/BannerContainer/VBoxContainer/RHV"]
+margin_top = 4.0
+margin_right = 571.0
+margin_bottom = 4.0
+
+[node name="GameModeContainer" type="HBoxContainer" parent="M/V/BannerContainer/VBoxContainer"]
+margin_right = 1242.0
+margin_bottom = 883.0
+size_flags_vertical = 3
+custom_constants/separation = 100
+
+[node name="LHV" type="VBoxContainer" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer"]
+margin_right = 900.0
+margin_bottom = 883.0
+rect_min_size = Vector2( 900, 0 )
+custom_constants/separation = 30
 alignment = 2
+
+[node name="UtilityModesContainer" type="HBoxContainer" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV"]
+margin_top = 687.0
+margin_right = 900.0
+margin_bottom = 757.0
+custom_constants/separation = 20
+
+[node name="MissionButton" type="Button" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV/UtilityModesContainer"]
+margin_right = 100.0
+margin_bottom = 70.0
+theme = ExtResource( 12 )
+icon = ExtResource( 2 )
+
+[node name="MailButton" type="Button" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV/UtilityModesContainer"]
+margin_left = 120.0
+margin_right = 233.0
+margin_bottom = 70.0
+theme = ExtResource( 12 )
+text = "[M]"
+
+[node name="FriendButton" type="Button" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV/UtilityModesContainer"]
+margin_left = 253.0
+margin_right = 366.0
+margin_bottom = 70.0
+theme = ExtResource( 12 )
+text = "[F]"
+
+[node name="GuildButton" type="Button" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV/UtilityModesContainer"]
+margin_left = 386.0
+margin_right = 499.0
+margin_bottom = 70.0
+theme = ExtResource( 12 )
+text = "[G]"
+
+[node name="ShopButton" type="Button" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV/UtilityModesContainer"]
+margin_left = 519.0
+margin_right = 632.0
+margin_bottom = 70.0
+theme = ExtResource( 12 )
+text = "[S]"
+
+[node name="Hr" type="HSeparator" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV"]
+margin_top = 787.0
+margin_right = 900.0
+margin_bottom = 791.0
+theme = ExtResource( 5 )
+
+[node name="ChatButton" parent="M/V/BannerContainer/VBoxContainer/GameModeContainer/LHV" instance=ExtResource( 10 )]
+margin_top = 821.0
+margin_right = 900.0
+margin_bottom = 883.0
 
 [node name="SummonBannerCarousel" parent="M/V/BannerContainer" instance=ExtResource( 8 )]
 margin_left = 1246.0
 margin_right = 1860.0
-
-[node name="GameModeContainer" type="HBoxContainer" parent="M/V"]
-margin_top = 438.0
-margin_right = 1860.0
-margin_bottom = 1020.0
+margin_bottom = 883.0
 size_flags_vertical = 3
-custom_constants/separation = 100
-
-[node name="LHV" type="VBoxContainer" parent="M/V/GameModeContainer"]
-margin_right = 880.0
-margin_bottom = 582.0
-size_flags_horizontal = 3
-custom_constants/separation = 30
-alignment = 2
-
-[node name="UtilityModesContainer" type="HBoxContainer" parent="M/V/GameModeContainer/LHV"]
-margin_top = 476.0
-margin_right = 880.0
-margin_bottom = 476.0
-
-[node name="Hr" type="HSeparator" parent="M/V/GameModeContainer/LHV"]
-margin_top = 506.0
-margin_right = 880.0
-margin_bottom = 510.0
-theme = ExtResource( 5 )
-
-[node name="ChatButton" parent="M/V/GameModeContainer/LHV" instance=ExtResource( 10 )]
-margin_top = 540.0
-margin_bottom = 582.0
-
-[node name="RHV" type="VBoxContainer" parent="M/V/GameModeContainer"]
-margin_left = 980.0
-margin_right = 1860.0
-margin_bottom = 582.0
-size_flags_horizontal = 3
-
-[node name="CombatModesContainer" type="VBoxContainer" parent="M/V/GameModeContainer/RHV"]
-margin_right = 880.0
-
-[node name="SupportModesContainer" type="VBoxContainer" parent="M/V/GameModeContainer/RHV"]
-margin_top = 4.0
-margin_right = 880.0
-margin_bottom = 4.0

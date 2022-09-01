@@ -10,6 +10,9 @@ margin_bottom = 367.0
 mouse_default_cursor_shape = 2
 theme = ExtResource( 1 )
 align = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="M" type="MarginContainer" parent="."]
 anchor_right = 1.0
