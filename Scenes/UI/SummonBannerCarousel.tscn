@@ -71,7 +71,7 @@ rect_min_size = Vector2( 0, 15 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="TabTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 10.0
 
 [connection signal="gui_input" from="BannerTabs" to="." method="_on_BannerTabs_gui_input"]
 [connection signal="timeout" from="TabTimer" to="." method="_on_TabTimer_timeout"]
