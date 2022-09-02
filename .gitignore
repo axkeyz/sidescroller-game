@@ -12,3 +12,6 @@ data_*/
 
 # Other
 Assets/
+
+# Environment files
+.env

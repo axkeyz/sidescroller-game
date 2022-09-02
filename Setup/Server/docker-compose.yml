@@ -1,0 +1,32 @@
+version: '3.6'
+
+volumes:
+  postgis-data:
+
+services:
+
+  postgres:
+    image: postgres
+    container_name: sidescroller_postgres
+    restart: always
+    env_file:
+      - .env
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_DB=${DB_NAME}
+    ports:
+      - "${DB_PORT}:5432"
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: sidescroller_pgadmin
+    env_file:
+      - .env
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${ADMIN_PASSWORD}
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres
