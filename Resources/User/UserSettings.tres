@@ -1,0 +1,47 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Singletons/Resources/UserSettings.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+lobby_characters = [ {
+"character": "Baxton",
+"expression": "default",
+"position": [ 0.0, 0.0 ],
+"scale": 1.0
+} ]
+game_quality = {
+"fps": 60,
+"gpu": "enable",
+"quality": "medium"
+}
+sound = {
+"enable_all": true,
+"music": 50,
+"notifications": {
+"chat": true,
+"craft": true,
+"dispatch": true,
+"enable_all": true
+},
+"sfx": 50,
+"ui": 50,
+"voices": 0
+}
+language = {
+"text": "english",
+"voice": "none"
+}
+battle = {
+"auto": false,
+"auto_special": false,
+"show_advantages": true,
+"show_buffs": true,
+"show_damage": true,
+"show_special": true,
+"tracking": true
+}
+user = {
+"gacha_warning": true,
+"streaming settings": false
+}
