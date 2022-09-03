@@ -1,0 +1,255 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Resources/Themes/LightTheme.tres" type="Theme" id=1]
+[ext_resource path="res://Assets/UI/Background/UserID.png" type="Texture" id=2]
+[ext_resource path="res://Assets/UI/Fonts/CascadiaCodePL-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Scenes/UI/BorderedTextEdit.tscn" type="PackedScene" id=4]
+
+[sub_resource type="DynamicFont" id=2]
+size = 25
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="UserIDPanel" type="TextureRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -600.0
+margin_top = -352.0
+margin_right = 600.0
+margin_bottom = 352.0
+rect_min_size = Vector2( 1200, 704 )
+texture = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeaderContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_right = 1200.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+custom_constants/margin_top = 8
+
+[node name="HeaderLabel" type="Label" parent="VBoxContainer/HeaderContainer"]
+margin_top = 19.0
+margin_right = 1200.0
+margin_bottom = 49.0
+theme = ExtResource( 1 )
+text = "IDENTIFICATION"
+align = 1
+valign = 1
+
+[node name="IDElementContainer" type="MarginContainer" parent="VBoxContainer"]
+margin_top = 64.0
+margin_right = 1200.0
+margin_bottom = 704.0
+size_flags_vertical = 3
+custom_constants/margin_right = 75
+custom_constants/margin_top = 75
+custom_constants/margin_left = 75
+custom_constants/margin_bottom = 165
+
+[node name="LoggedInContainer" type="HBoxContainer" parent="VBoxContainer/IDElementContainer"]
+visible = false
+margin_left = 75.0
+margin_top = 75.0
+margin_right = 1125.0
+margin_bottom = 475.0
+custom_constants/separation = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/IDElementContainer/LoggedInContainer"]
+margin_right = 200.0
+margin_bottom = 258.0
+rect_min_size = Vector2( 200, 0 )
+
+[node name="LabelsContainer" type="VBoxContainer" parent="VBoxContainer/IDElementContainer/LoggedInContainer"]
+margin_left = 250.0
+margin_right = 370.0
+margin_bottom = 258.0
+alignment = 1
+
+[node name="FieldLabel" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/LabelsContainer"]
+margin_top = 46.0
+margin_right = 120.0
+margin_bottom = 76.0
+theme = ExtResource( 1 )
+text = "USERNAME"
+
+[node name="FieldLabel2" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/LabelsContainer"]
+margin_top = 80.0
+margin_right = 120.0
+margin_bottom = 110.0
+theme = ExtResource( 1 )
+text = "NICKNAME"
+
+[node name="FieldValue" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/LabelsContainer"]
+margin_top = 114.0
+margin_right = 120.0
+margin_bottom = 144.0
+theme = ExtResource( 1 )
+text = "EMAIL"
+
+[node name="FieldLabel3" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/LabelsContainer"]
+margin_top = 148.0
+margin_right = 120.0
+margin_bottom = 178.0
+theme = ExtResource( 1 )
+text = "ID"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FieldLabel4" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/LabelsContainer"]
+margin_top = 182.0
+margin_right = 120.0
+margin_bottom = 212.0
+theme = ExtResource( 1 )
+text = "LEVEL"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ValuesContainer" type="VBoxContainer" parent="VBoxContainer/IDElementContainer/LoggedInContainer"]
+margin_left = 420.0
+margin_right = 700.0
+margin_bottom = 258.0
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="FieldLabel" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/ValuesContainer"]
+margin_top = 46.0
+margin_right = 280.0
+margin_bottom = 76.0
+theme = ExtResource( 1 )
+text = "AXKEYZ"
+
+[node name="FieldValue2" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/ValuesContainer"]
+margin_top = 80.0
+margin_right = 280.0
+margin_bottom = 110.0
+theme = ExtResource( 1 )
+text = "BAXTON"
+
+[node name="FieldValue3" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/ValuesContainer"]
+margin_top = 114.0
+margin_right = 280.0
+margin_bottom = 144.0
+theme = ExtResource( 1 )
+text = "AILEEN.HUANG@OUTLOOK.CO.NZ"
+clip_text = true
+
+[node name="FieldValue" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/ValuesContainer"]
+margin_top = 148.0
+margin_right = 280.0
+margin_bottom = 178.0
+theme = ExtResource( 1 )
+text = "#0123456789"
+
+[node name="FieldValue4" type="Label" parent="VBoxContainer/IDElementContainer/LoggedInContainer/ValuesContainer"]
+margin_top = 182.0
+margin_right = 280.0
+margin_bottom = 212.0
+theme = ExtResource( 1 )
+text = "70"
+
+[node name="LoginContainer" type="HBoxContainer" parent="VBoxContainer/IDElementContainer"]
+margin_left = 75.0
+margin_top = 75.0
+margin_right = 1125.0
+margin_bottom = 475.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/IDElementContainer/LoginContainer"]
+visible = false
+margin_right = 200.0
+margin_bottom = 400.0
+rect_min_size = Vector2( 200, 0 )
+custom_constants/separation = 10
+alignment = 1
+
+[node name="LoginButton4" type="Button" parent="VBoxContainer/IDElementContainer/LoginContainer/VBoxContainer"]
+margin_top = 85.0
+margin_right = 200.0
+margin_bottom = 135.0
+custom_constants/hseparation = 20
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+text = "Apple"
+align = 0
+
+[node name="LoginButton" type="Button" parent="VBoxContainer/IDElementContainer/LoginContainer/VBoxContainer"]
+margin_top = 145.0
+margin_right = 200.0
+margin_bottom = 195.0
+custom_constants/hseparation = 20
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+text = "Discord"
+align = 0
+
+[node name="LoginButton2" type="Button" parent="VBoxContainer/IDElementContainer/LoginContainer/VBoxContainer"]
+margin_top = 205.0
+margin_right = 200.0
+margin_bottom = 255.0
+custom_constants/hseparation = 20
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+text = "Facebook"
+align = 0
+
+[node name="LoginButton3" type="Button" parent="VBoxContainer/IDElementContainer/LoginContainer/VBoxContainer"]
+margin_top = 265.0
+margin_right = 200.0
+margin_bottom = 315.0
+custom_constants/hseparation = 20
+custom_fonts/font = SubResource( 2 )
+custom_styles/normal = SubResource( 1 )
+text = "Google"
+align = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/IDElementContainer/LoginContainer"]
+margin_right = 1050.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+custom_constants/separation = 20
+
+[node name="BorderedTextEdit" parent="VBoxContainer/IDElementContainer/LoginContainer/VBoxContainer2" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 1050.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+
+[node name="BorderedTextEdit2" parent="VBoxContainer/IDElementContainer/LoginContainer/VBoxContainer2" instance=ExtResource( 4 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 70.0
+margin_right = 1050.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 80 )
+
+[node name="BorderedTextEdit3" parent="VBoxContainer/IDElementContainer/LoginContainer/VBoxContainer2" instance=ExtResource( 4 )]
+visible = false
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 70.0
+margin_right = 1050.0
+margin_bottom = 150.0
+rect_min_size = Vector2( 0, 80 )
