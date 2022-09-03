@@ -42,9 +42,10 @@ export var battle = {
 	"show_special": true,
 	"tracking": true,
 	"show_advantages": true,
+	"unit_alignment": "left",
 }
 
 export var user = {
-	"streaming settings": false,
+	"streaming_settings": false,
 	"gacha_warning": true,
 }
