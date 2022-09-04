@@ -1,17 +1,15 @@
 extends Panel
 
-#func _on_BorderedTextEdit_gui_input(event):
-#	print("got here")
-#	if event is InputEventScreenTouch:
-#		$M/VBoxContainer/UserInputText.grab_focus()
+## Placeholder text
+export var placeholder := "LABEL"
 
-#
-#func _on_M_gui_input(event):
-#	if event is InputEventScreenTouch:
-#		$M/VBoxContainer/UserInputText.grab_focus()
+## Is password input field -> bool
+export var password := false
 
+func _ready() -> void:
+	$M/UserInputText.placeholder_text = placeholder.to_upper()
+	$M/UserInputText.secret = password
 
-func _on_BorderedTextEdit_gui_input(event):
+func _on_BorderedTextEdit_gui_input(event) -> void:
 	if event is InputEventScreenTouch:
-		$M/VBoxContainer/UserInputText.grab_focus()
-	pass # Replace with function body.
+		$M/UserInputText.grab_focus()
