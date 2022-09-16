@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://Scenes/UI/PCStatsContainer.tscn" type="PackedScene" id=2]
+
+[node name="BattleUI" type="Node2D"]
+
+[node name="V" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HeaderContainer" type="VBoxContainer" parent="V"]
+margin_right = 345.0
+margin_bottom = 134.0
+
+[node name="ShipHPContainer" type="HBoxContainer" parent="V/HeaderContainer"]
+margin_right = 345.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+
+[node name="ParallelogramImage" type="Node2D" parent="V/HeaderContainer/ShipHPContainer"]
+
+[node name="TextureRect" type="TextureRect" parent="V/HeaderContainer/ShipHPContainer/ParallelogramImage"]
+margin_right = 100.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 100, 100 )
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PCStatsContainer" parent="V/HeaderContainer" instance=ExtResource( 2 )]
+margin_top = 104.0
+margin_right = 345.0
+margin_bottom = 134.0
