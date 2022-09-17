@@ -10,3 +10,8 @@ extends Node2D
 func _ready():
 	pass # Replace with function body.
 
+
+func _on_DeployButton_pressed():
+	$Baxton.is_deployed = true
+	$Baxton.show()
+	pass # Replace with function body.

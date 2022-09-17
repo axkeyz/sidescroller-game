@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scenes/Main/BattleUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Map/Test/PinkDesert.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Main/BattleScene.gd" type="Script" id=3]
+[ext_resource path="res://Resources/Themes/LightTheme.tres" type="Theme" id=4]
+[ext_resource path="res://Scenes/Hero/Baxton.tscn" type="PackedScene" id=5]
 
 [node name="BattleScene" type="Node2D"]
 script = ExtResource( 3 )
@@ -10,3 +12,26 @@ script = ExtResource( 3 )
 [node name="PinkDesert" parent="." instance=ExtResource( 2 )]
 
 [node name="BattleUI" parent="." instance=ExtResource( 1 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 126.0
+margin_bottom = 42.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DeployButton" type="Button" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -42.0
+margin_right = 126.0
+theme = ExtResource( 4 )
+text = "DEPLOY"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Baxton" parent="." instance=ExtResource( 5 )]
+visible = false
+pos_y = 875
+
+[connection signal="pressed" from="CanvasLayer/DeployButton" to="." method="_on_DeployButton_pressed"]

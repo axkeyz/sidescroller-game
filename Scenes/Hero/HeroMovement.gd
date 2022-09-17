@@ -6,8 +6,7 @@ export (int) var safe_x = 80
 var is_deployed = false
 
 func _ready():
-	if is_deployed:
-		get_node("CombatSprite").position.y = pos_y
+	get_node("CombatSprite").position.y = pos_y
 
 func _physics_process(delta):
 	if is_deployed:
