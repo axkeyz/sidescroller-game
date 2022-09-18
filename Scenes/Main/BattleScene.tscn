@@ -34,4 +34,4 @@ __meta__ = {
 visible = false
 pos_y = 875
 
-[connection signal="pressed" from="CanvasLayer/DeployButton" to="." method="_on_DeployButton_pressed"]
+[connection signal="gui_input" from="CanvasLayer/DeployButton" to="." method="_on_DeployButton_gui_input"]
