@@ -33,3 +33,6 @@ func authenticate_async(email: String, password: String) -> int:
 		result = new_session.get_exception().status_code
 	
 	return result
+
+func logout_async() -> void:
+	_client.session_logout_async(_session)
