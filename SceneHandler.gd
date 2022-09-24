@@ -15,7 +15,10 @@ func _ready() -> void:
 	authenticate_user()
 
 func authenticate_user():
+	debug_panel.text = "AUTH_BEGIN"
+	
 	# Connect nakama server
+	# TODO: Authenticate via other methods first before device_id
 	if user.identity["device_id"] != "":
 		authenticate_by_device()
 	else:
@@ -25,29 +28,29 @@ func authenticate_user():
 func authenticate_existing_nakama_user(email: String) -> void:
 	var password : String = user.identity["password"]
 	
-	debug_panel.text  = "Authenticating %s" % email
 	var result : int = yield(server_connection.authenticate_async(email, password), "completed")
-	
-	if result == OK:
-		on_auth_success()
-	else:
-		debug_panel.text = "AUTH_FAILED"
+	read_auth_result(result)
 	
 
 func authenticate_by_device() -> void:
-	debug_panel.text = "AUTH_BEGIN"
-	
 	save_guest_user_details_to_local()
 	
 	var result : int = yield(server_connection.guest_login_async(user.identity["id"]), "completed")
-	
+	read_auth_result(result)
+
+func read_auth_result(result: int) -> void:
 	if result == OK:
 		on_auth_success()
 	else:
-		debug_panel.text = "AUTH_FAILED"
-# warning-ignore:return_value_discarded
-		start_menu.connect("pressed", self, "authenticate_user")
+		on_auth_failed()
 
+func on_auth_failed() -> void:
+	debug_panel.text = "AUTH_FAILED"
+	
+	# Attempt to reauthenticate if the user presses auth button
+	# warning-ignore:return_value_discarded
+	if not start_menu.is_connected("pressed", self, "authenticate_user"):
+		start_menu.connect("pressed", self, "authenticate_user")
 
 func on_auth_success() -> void:
 	if start_menu.is_connected("pressed", self, "authenticate_user"):
@@ -58,22 +61,28 @@ func on_auth_success() -> void:
 	start_menu.connect("pressed", self, "on_startgame_pressed")
 
 func save_guest_user_details_to_local() -> void:
-	user.identity["id"] = "user#%s" % Utils.generate_unique_string(8)
-	user.identity["device_id"] = device_id
+	if user.identity["id"] == "":
+		user.identity["id"] = "user#%s" % Utils.generate_unique_string(8)
+	
+	if user.identity["device_id"] == "":
+		user.identity["device_id"] = device_id
 # warning-ignore:return_value_discarded
 	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)
 
 func on_startgame_pressed():
-	# Remove StartMenu
-	get_node("StartMenu").queue_free()
-	
 	# Add Lobby Scene
 	var lobby_scene = load("res://Scenes/Main/LobbyScene.tscn").instance()
 	add_child(lobby_scene)
+	
+	# Remove StartMenu
+	get_node("StartMenu").queue_free()
 
 func on_end_game_pressed():
 	Utils.remove_all_signals(start_menu)
 	
-	server_connection.logout_async()
-
-	debug_panel.text = "LOGOUT_SUCCESS"
+	var result : int = yield(server_connection.logout_async(), "cpmpleted")
+	
+	if result == OK:
+		debug_panel.text = "LOGOUT_SUCCESS"
+	else:
+		debug_panel.text = "LOGOUT_FAILED"
