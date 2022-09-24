@@ -16,12 +16,11 @@ func _ready() -> void:
 
 func authenticate_user():
 	# Connect nakama server
-	var email : String = user.identity["email"]
-	
-	if user.identity["email"] != "":
-		authenticate_existing_nakama_user(email)
+	if user.identity["device_id"] != "":
+		authenticate_by_device()
 	else:
-		reauthenticate_or_register_user()
+		# TODO: load the register / login panel
+		pass
 
 func authenticate_existing_nakama_user(email: String) -> void:
 	var password : String = user.identity["password"]
@@ -35,13 +34,8 @@ func authenticate_existing_nakama_user(email: String) -> void:
 		debug_panel.text = "AUTH_FAILED"
 	
 
-func reauthenticate_or_register_user() -> void:
-	register_guest_user()
-	## TODO: Add login
-	pass
-
-func register_guest_user() -> void:
-	debug_panel.text = "CREATE_GUEST_USER"
+func authenticate_by_device() -> void:
+	debug_panel.text = "AUTH_BEGIN"
 	
 	save_guest_user_details_to_local()
 	
@@ -65,7 +59,7 @@ func on_auth_success() -> void:
 
 func save_guest_user_details_to_local() -> void:
 	user.identity["id"] = "user#%s" % Utils.generate_unique_string(8)
-	user.identity["device"].append(device_id)
+	user.identity["device_id"] = device_id
 # warning-ignore:return_value_discarded
 	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)
 

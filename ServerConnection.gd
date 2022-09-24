@@ -20,11 +20,11 @@ func guest_login_async(username : String) -> int:
 
 	return result
 
-func authenticate_async(email: String, password: String) -> int:
+func authenticate_async(email: String, password: String, register := false) -> int:
 	var result := OK
 	
 	var new_session : NakamaSession = yield(
-		_client.authenticate_email_async(email, password, null, false), "completed"
+		_client.authenticate_email_async(email, password, null, register), "completed"
 	)
 	
 	if not new_session.is_exception():
