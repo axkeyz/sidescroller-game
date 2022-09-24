@@ -2,9 +2,11 @@ extends Resource
 
 
 export var identity : Dictionary = {
-	"device": [],
+	"device_id": "",
 	"id": "",
 	"email": "",
 	"password": "",
-	"token": ""
+	"discord": "",
+	"facebook": "",
+	"google": "",
 }
