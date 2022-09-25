@@ -35,7 +35,7 @@ func authenticate_existing_nakama_user(email: String) -> void:
 func authenticate_by_device() -> void:
 	save_guest_user_details_to_local()
 	
-	var result : int = yield(server_connection.guest_login_async(user.identity["id"]), "completed")
+	var result : int = yield(server_connection.guest_login_async(user.identity), "completed")
 	read_auth_result(result)
 
 func read_auth_result(result: int) -> void:
@@ -80,7 +80,14 @@ func on_startgame_pressed():
 func on_end_game_pressed():
 	Utils.remove_all_signals(start_menu)
 	
-	var result : int = yield(server_connection.logout_async(), "cpmpleted")
+	var is_linked = server_connection.is_linked_account(user.identity["device_id"])
+	var result : int = OK
+	
+	if not is_linked:
+		var test = server_connection.create_guest_linked_account(user.identity)
+#		server_connection.logout_async()
+	
+#	server_connection.logout_async()
 	
 	if result == OK:
 		debug_panel.text = "LOGOUT_SUCCESS"
