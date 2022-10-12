@@ -26,10 +26,12 @@ func _on_DeployCostTimer_timeout() -> void:
 
 
 func _on_DeployCostProgressBar_value_changed(value: float) -> void:
-	print(value)
 	if value >= max_deploy_resources and deploy_resources < 10:
-		deploy_resources += 1
-		deploy_cost_label.text = String(deploy_resources)
-		$V/HBoxContainer/DeployCostProgressBar.value = 0
+		add_new_deploy_resource()
 	if deploy_resources == 10:
 		deploy_timer.stop()
+
+func add_new_deploy_resource() -> void:
+	deploy_resources += 1
+	deploy_cost_label.text = String(deploy_resources)
+	$V/HBoxContainer/DeployCostProgressBar.value = 0
