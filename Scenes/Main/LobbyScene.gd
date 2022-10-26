@@ -3,10 +3,11 @@ extends Node2D
 var user_settings := preload("res://Resources/User/UserSettings.tres")
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	set_user_sprite()
+func _ready() -> void:
+	set_lobby_sprite()
 
-func set_user_sprite():
+# set_lobby_sprite sets the lobby sprite according to user setting
+func set_lobby_sprite() -> void:
 	var lobby_sprite := $Background/Sprite
 	var user_lobby : Dictionary = user_settings.lobby_characters
 	
@@ -17,3 +18,9 @@ func set_user_sprite():
 		user_settings.lobby_characters["position"][1])
 	
 	lobby_sprite.texture.set_size_override(lobby_sprite.texture.size * user_lobby["scale"])
+
+func set_game_settings() -> void:
+	var game_quality : Dictionary = user_settings.game_quality
+	
+	Engine.set_target_fps(game_quality.fps)
+	pass
