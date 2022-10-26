@@ -25,3 +25,12 @@ static func remove_all_signals(node: Node) -> void:
 		
 		for c in connections:
 			node.disconnect(c.signal, c.target, c.method)
+
+static func create_img_texture_from_img(img_path: String) -> ImageTexture:
+	var img = Image.new()
+	var itex = ImageTexture.new()
+	
+	img.load(img_path)
+	itex.create_from_image(img)
+	
+	return itex

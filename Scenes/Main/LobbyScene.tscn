@@ -2,9 +2,10 @@
 
 [ext_resource path="res://Scenes/UI/LobbyUI.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Resources/Themes/LightTheme.tres" type="Theme" id=2]
-[ext_resource path="res://Assets/Heroes/Baxton/Sprite.png" type="Texture" id=4]
+[ext_resource path="res://Scenes/Main/LobbyScene.gd" type="Script" id=3]
 
 [node name="LobbyScene" type="Node2D"]
+script = ExtResource( 3 )
 
 [node name="Background" type="Panel" parent="."]
 anchor_right = 1.0
@@ -16,9 +17,8 @@ __meta__ = {
 }
 
 [node name="Sprite" type="Sprite" parent="Background"]
-position = Vector2( 701, 615 )
+position = Vector2( 300, 500 )
 scale = Vector2( 0.328042, 0.328042 )
-texture = ExtResource( 4 )
 
 [node name="HideLobbyTimer" type="Timer" parent="."]
 wait_time = 30.0

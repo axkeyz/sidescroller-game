@@ -1,13 +1,11 @@
 extends Resource
 
-export var lobby_characters = [
-	{
-		"character": "Baxton",
-		"expression": "default",
-		"position": [0.0, 0.0],
-		"scale": 1.0
-	}
-]
+export var lobby_characters = {
+	"character": "Baxton",
+	"expression": "default",
+	"position": [0.0, 0.0],
+	"scale": 1.0
+}
 
 export var game_quality = {
 	"fps": 60,
