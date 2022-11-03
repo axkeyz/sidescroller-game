@@ -10,9 +10,9 @@ func guest_login_async(user: Dictionary) -> int:
 	var result := OK
 	
 	var new_session : NakamaSession = yield(
-		_client.authenticate_device_async(user["device_id"]), "completed"
+		_client.authenticate_device_async(user["device_id"], user["id"], user["guest"]), "completed"
 	)
-	
+
 	result = update_async_result(new_session, result)
 
 	return result

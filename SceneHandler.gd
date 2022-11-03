@@ -19,15 +19,25 @@ func authenticate_user():
 	
 	# Connect nakama server
 	# TODO: Authenticate via other methods first before device_id
-	if user.identity["device_id"] == "":
-		if not start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
-			var error = start_menu.connect("pressed", self, "show_SetUsernamePopup")
-			Utils.print_error_code(error)
+	if user.identity["guest"]:
+		start_create_guest_account()
 #	else:
 #		authenticate_user()
 
-func show_SetUsernamePopup():
+func start_create_guest_account() -> void:
+	if not start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
+		var error = start_menu.connect("pressed", self, "show_SetUsernamePopup")
+		Utils.print_error_code(error)
+
+func show_SetUsernamePopup() -> void:
 	$StartMenu/SetUsernamePopup.visible = true
+	
+	# Connect successful register_username signal to authenticate_by_device method
+	var error = $StartMenu/SetUsernamePopup.connect("register_username", self, "authenticate_by_device")
+	Utils.print_error_code(error)
+
+#func on_guest_register_username(username: String) -> void:
+#	authenticate_by_device(username)
 
 #func authenticate_existing_nakama_user(email: String) -> void:
 #	var password : String = user.identity["password"]
@@ -36,42 +46,42 @@ func show_SetUsernamePopup():
 #	read_auth_result(result)
 #
 #
-#func authenticate_by_device() -> void:
-#	save_guest_user_details_to_local()
+func authenticate_by_device(username: String) -> void:
+	save_guest_user_details_to_local(username)
+
+	var result : int = yield(server_connection.guest_login_async(user.identity), "completed")
+	read_auth_result(result)
 #
-#	var result : int = yield(server_connection.guest_login_async(user.identity), "completed")
-#	read_auth_result(result)
-#
-#func read_auth_result(result: int) -> void:
-#	if result == OK:
-#		on_auth_success()
-#	else:
-#		on_auth_failed()
-#
-#func on_auth_failed() -> void:
-#	debug_panel.text = "AUTH_FAILED"
-#
-#	# Attempt to reauthenticate if the user presses auth button
-#	# warning-ignore:return_value_discarded
-#	if not start_menu.is_connected("pressed", self, "authenticate_user"):
-#		start_menu.connect("pressed", self, "authenticate_user")
-#
-#func on_auth_success() -> void:
-#	if start_menu.is_connected("pressed", self, "authenticate_user"):
-#		start_menu.disconnect("pressed", self, "authenticate_user")
-#
-#	debug_panel.text = "AUTH_SUCCESS"
-## warning-ignore:return_value_discarded
-#	start_menu.connect("pressed", self, "on_startgame_pressed")
-#
-#func save_guest_user_details_to_local() -> void:
-#	if user.identity["id"] == "":
-#		user.identity["id"] = "user#%s" % Utils.generate_unique_string(8)
-#
-#	if user.identity["device_id"] == "":
-#		user.identity["device_id"] = device_id
-## warning-ignore:return_value_discarded
-#	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)
+func read_auth_result(result: int) -> void:
+	if result == OK:
+		on_auth_success()
+	else:
+		on_auth_failed()
+
+func on_auth_failed() -> void:
+	debug_panel.text = "AUTH_FAILED"
+
+	# Attempt to reauthenticate if the user presses auth button
+	# warning-ignore:return_value_discarded
+	if not start_menu.is_connected("pressed", self, "authenticate_user"):
+		start_menu.connect("pressed", self, "authenticate_user")
+
+func on_auth_success() -> void:
+	if start_menu.is_connected("pressed", self, "authenticate_user"):
+		start_menu.disconnect("pressed", self, "authenticate_user")
+
+	debug_panel.text = "AUTH_SUCCESS"
+# warning-ignore:return_value_discarded
+	start_menu.connect("pressed", self, "on_startgame_pressed")
+
+func save_guest_user_details_to_local(username: String) -> void:
+	if user.identity["id"] == "":
+		user.identity["id"] = username
+
+	if user.identity["device_id"] == "":
+		user.identity["device_id"] = device_id
+# warning-ignore:return_value_discarded
+	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)
 #
 #func on_startgame_pressed():
 #	# Add Lobby Scene
