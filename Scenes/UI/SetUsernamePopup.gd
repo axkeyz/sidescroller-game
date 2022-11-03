@@ -3,17 +3,25 @@ extends PopupPanel
 
 # Declare member variables here. Examples:
 onready var warning_label = $M/V/Start/V/WarningLabel
+var username : String = ""
 
 signal register_username
 
+func _ready() -> void:
+	var error := $M/V/InputFields/Username/M/UserInputText.connect("text_changed", self, "on_update_username")
+	Utils.print_error_code(error)
+
+func on_update_username(new_text: String) -> void:
+	username = new_text
+	pass
+
 func _on_RegisterUsernameButton_pressed() -> void:
-	var username = $M/V/InputFields/Username/M/UserInputText.text
-	
-	if not $M/V/TOS/TOSCheckbox.toggle_mode:
+	if not $M/V/Start/V/TOSCheckbox.pressed:
 		warning_label.text = "You must agree to the terms and conditions."
-	elif username.text == "":
+	elif username == "":
 		warning_label.text = "A username is required."
 	elif Utils.has_punctuation(username):
 		warning_label.text = "Username contains forbidden characters."
 	else:
+		warning_label.text = ""
 		emit_signal("register_username", username)

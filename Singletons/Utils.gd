@@ -47,3 +47,7 @@ static func has_punctuation(s: String) -> bool:
 			return true
 		
 	return false
+
+static func print_error_code(e) -> void:
+	if e != OK:
+		print(e)

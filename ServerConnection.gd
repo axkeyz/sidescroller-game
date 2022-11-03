@@ -46,7 +46,7 @@ func is_linked_account(device_id) -> bool:
 	return true
 
 func create_guest_linked_account(user: Dictionary) -> int:
-	var error := FAILED
+	var error = FAILED
 	
 	var result : NakamaAsyncResult = yield(
 		_client.link_custom_async(_session, user["id"]), "completed"
