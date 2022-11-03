@@ -1,0 +1,138 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/Themes/FontSize50.tres" type="Theme" id=1]
+[ext_resource path="res://Resources/Themes/FontSize20.tres" type="Theme" id=2]
+[ext_resource path="res://Scenes/UI/BorderedTextEdit.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/UI/SetUsernamePopup.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.34902, 0.34902, 0.34902, 0.423529 )
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[node name="SetUsernamePopup" type="PopupPanel"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -480.0
+margin_top = -270.0
+margin_right = 480.0
+margin_bottom = 270.0
+custom_styles/panel = SubResource( 2 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="M" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 30
+custom_constants/margin_top = 30
+custom_constants/margin_left = 30
+custom_constants/margin_bottom = 30
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="V" type="VBoxContainer" parent="M"]
+margin_left = 30.0
+margin_top = 30.0
+margin_right = 930.0
+margin_bottom = 510.0
+alignment = 1
+
+[node name="Heading" type="Label" parent="M/V"]
+margin_top = 26.0
+margin_right = 900.0
+margin_bottom = 86.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 1 )
+text = "System Message"
+align = 1
+
+[node name="SysMessage" type="MarginContainer" parent="M/V"]
+margin_top = 90.0
+margin_right = 900.0
+margin_bottom = 226.0
+custom_constants/margin_top = 20
+custom_constants/margin_bottom = 20
+
+[node name="Description" type="Label" parent="M/V/SysMessage"]
+margin_top = 20.0
+margin_right = 900.0
+margin_bottom = 116.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 2 )
+text = "[New constellation detected...]
+[Welcome to The StreamCast!]
+[Please set your constellation name.]"
+
+[node name="InputFields" type="MarginContainer" parent="M/V"]
+margin_top = 230.0
+margin_right = 900.0
+margin_bottom = 310.0
+rect_min_size = Vector2( 0, 80 )
+custom_constants/margin_top = 0
+custom_constants/margin_bottom = 20
+
+[node name="Username" parent="M/V/InputFields" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 900.0
+margin_bottom = 60.0
+placeholder = "Constellation name"
+
+[node name="TOS" type="HBoxContainer" parent="M/V"]
+margin_top = 314.0
+margin_right = 900.0
+margin_bottom = 344.0
+
+[node name="TOSCheckbox" type="CheckBox" parent="M/V/TOS"]
+margin_right = 24.0
+margin_bottom = 30.0
+
+[node name="TOSLabel" type="Label" parent="M/V/TOS"]
+margin_left = 28.0
+margin_right = 900.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 2 )
+text = "I agree to all the terms and conditions."
+
+[node name="Start" type="MarginContainer" parent="M/V"]
+margin_top = 348.0
+margin_right = 900.0
+margin_bottom = 453.0
+custom_constants/margin_top = 20
+
+[node name="V" type="VBoxContainer" parent="M/V/Start"]
+margin_top = 20.0
+margin_right = 900.0
+margin_bottom = 105.0
+custom_constants/separation = 5
+
+[node name="WarningLabel" type="Label" parent="M/V/Start/V"]
+margin_right = 900.0
+margin_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme = ExtResource( 2 )
+custom_colors/font_color = Color( 0.92549, 0.215686, 0.215686, 1 )
+
+[node name="RegisterUsernameButton" type="Button" parent="M/V/Start/V"]
+margin_top = 35.0
+margin_right = 900.0
+margin_bottom = 85.0
+rect_min_size = Vector2( 0, 50 )
+theme = ExtResource( 2 )
+text = "[Start The Streamcast]"
+
+[connection signal="pressed" from="M/V/Start/V/RegisterUsernameButton" to="." method="_on_RegisterUsernameButton_pressed"]
