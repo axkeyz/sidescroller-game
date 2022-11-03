@@ -34,3 +34,16 @@ static func create_img_texture_from_img(img_path: String) -> ImageTexture:
 	itex.create_from_image(img)
 	
 	return itex
+
+static func has_punctuation(s: String) -> bool:
+	var punctuation : Array = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")",
+	"~", "`", "{", "}", "[", "]", "|", "\\", ":", ";", "\"", "'", "<", ",", ">",
+	".", "/", "?", "。", " ", "-", "–", "—", "_", "+", "=", "≠", "≈", "≥", "≤", "±",
+	"±", "×", "⋅", "÷", "∠", "∥", "⊥", "Δ", "~", "≅", "π", "©", "≪", "≫", "×", "∑",
+	"♪", "♩"]
+	
+	for ch in s:
+		if punctuation.has(ch):
+			return true
+		
+	return false

@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/UI/Fonts/Urbanist-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scenes/UI/SetUsernamePopup.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/UI/Background/start-screen.jpg" type="Texture" id=3]
 [ext_resource path="res://Resources/Themes/StartScreenTheme.tres" type="Theme" id=4]
 
@@ -90,3 +91,5 @@ size_flags_horizontal = 0
 size_flags_vertical = 8
 theme = ExtResource( 4 )
 text = "LOGOUT"
+
+[node name="SetUsernamePopup" parent="." instance=ExtResource( 2 )]
