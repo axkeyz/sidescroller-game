@@ -6,12 +6,16 @@ var _session : NakamaSession
 
 var _client := Nakama.create_client(KEY, "127.0.0.1", 7350, "http")
 
-func guest_login_async(user: Dictionary) -> int:
+var device_id := OS.get_unique_id()
+
+func guest_login_async(username: String, is_guest: bool) -> int:
 	var result := OK
 	
 	var new_session : NakamaSession = yield(
-		_client.authenticate_device_async(user["device_id"], user["id"], user["guest"]), "completed"
+		_client.authenticate_device_async(device_id, username, is_guest), "completed"
 	)
+	
+	save_user_details(new_session.username)
 
 	result = update_async_result(new_session, result)
 
@@ -69,3 +73,16 @@ func unlink_device_id(user: Dictionary) -> int:
 	result = update_async_result(new_session, result)
 	
 	return result
+
+func save_user_details(username: String) -> void:
+	var user := load("res://Resources/User/UserDetails.tres")
+	
+	user.identity["id"] = username
+
+	if user.identity["device_id"] == "":
+		user.identity["device_id"] = device_id
+	
+	user.identity["guest"] = false
+	
+# warning-ignore:return_value_discarded
+	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)
