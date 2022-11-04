@@ -5,12 +5,12 @@
 [resource]
 script = ExtResource( 1 )
 identity = {
-"device_id": "",
+"device_id": "{70364719-6d29-11ec-896a-806e6f6e6963}",
 "discord": "",
 "email": "",
 "facebook": "",
 "google": "",
-"guest": true,
-"id": "",
+"guest": false,
+"id": "IOJ912#00002",
 "password": ""
 }

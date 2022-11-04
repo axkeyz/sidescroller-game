@@ -33,8 +33,9 @@ func show_SetUsernamePopup() -> void:
 	$StartMenu/SetUsernamePopup.visible = true
 	
 	# Connect successful register_username signal to authenticate_by_device method
-	var error = $StartMenu/SetUsernamePopup.connect("register_username", self, "authenticate_by_device")
-	Utils.print_error_code(error)
+	if not $StartMenu/SetUsernamePopup.is_connected("register_username", self, "authenticate_by_device"):
+		var error = $StartMenu/SetUsernamePopup.connect("register_username", self, "authenticate_by_device")
+		Utils.print_error_code(error)
 
 func hide_SetUsernamePopup() -> void:
 	if start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
@@ -82,11 +83,11 @@ func on_startgame_pressed():
 #
 func on_end_game_pressed():
 	Utils.remove_all_signals(start_menu)
+	
 	var result := OK
 	
 	if user.identity["device_id"] != "":
-		var _test = server_connection.create_guest_linked_account(user.identity)
-#		server_connection.logout_async()
+		var _test = yield(server_connection.create_guest_linked_account(user.identity), "completed")
 
 	if result == OK:
 		debug_panel.text = "LOGOUT_SUCCESS"
@@ -94,4 +95,5 @@ func on_end_game_pressed():
 		debug_panel.text = "LOGOUT_FAILED"
 	
 	logout_button.hide()
-#	authenticate_user()
+	
+	authenticate_user()

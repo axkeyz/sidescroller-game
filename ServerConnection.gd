@@ -32,18 +32,6 @@ func authenticate_async(email: String, password: String, register := false) -> i
 	
 	return result
 
-func logout_async() -> int:
-	var error : int = OK
-	
-	var result : NakamaAsyncResult = yield(
-		_client.session_logout_async(_session), "completed"
-	)
-
-	if result.is_exception():
-		error = FAILED
-	
-	return error
-
 func update_async_result(session: NakamaSession, result: int) -> int:
 	if not session.is_exception():
 		_session = session
