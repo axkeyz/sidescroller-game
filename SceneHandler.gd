@@ -5,14 +5,14 @@ var user := load("res://Resources/User/UserDetails.tres")
 onready var server_connection := $ServerConnection
 onready var start_menu := $StartMenu/Background
 onready var debug_panel := $StartMenu/Background/M/VB/HB/VBLeft/ServerLabel
-onready var device_id := OS.get_unique_id()
+onready var logout_button := $StartMenu/Background/M/VB/HB/VBRight/LogoutButton
 
 func _ready() -> void:
-# warning-ignore:return_value_discarded
-	$StartMenu/Background/M/VB/HB/VBRight/LogoutButton.connect("pressed", self, "on_end_game_pressed")
-	
 	# Connect nakama server
 	authenticate_user()
+	
+	var e := logout_button.connect("pressed", self, "on_end_game_pressed")
+	Utils.print_error_code(e)
 
 func authenticate_user():
 	debug_panel.text = "AUTH_BEGIN"
@@ -21,8 +21,8 @@ func authenticate_user():
 	# TODO: Authenticate via other methods first before device_id
 	if user.identity["guest"]:
 		start_create_guest_account()
-#	else:
-#		authenticate_user()
+	else:
+		authenticate_by_device(user.identity["id"])
 
 func start_create_guest_account() -> void:
 	if not start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
@@ -36,20 +36,13 @@ func show_SetUsernamePopup() -> void:
 	var error = $StartMenu/SetUsernamePopup.connect("register_username", self, "authenticate_by_device")
 	Utils.print_error_code(error)
 
-#func on_guest_register_username(username: String) -> void:
-#	authenticate_by_device(username)
+func hide_SetUsernamePopup() -> void:
+	if start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
+		start_menu.disconnect("pressed", self, "show_SetUsernamePopup")
+		$StartMenu/SetUsernamePopup.visible = false
 
-#func authenticate_existing_nakama_user(email: String) -> void:
-#	var password : String = user.identity["password"]
-#
-#	var result : int = yield(server_connection.authenticate_async(email, password), "completed")
-#	read_auth_result(result)
-#
-#
 func authenticate_by_device(username: String) -> void:
-	save_guest_user_details_to_local(username)
-
-	var result : int = yield(server_connection.guest_login_async(user.identity), "completed")
+	var result : int = yield(server_connection.guest_login_async(username, user.identity["guest"]), "completed")
 	read_auth_result(result)
 #
 func read_auth_result(result: int) -> void:
@@ -62,48 +55,43 @@ func on_auth_failed() -> void:
 	debug_panel.text = "AUTH_FAILED"
 
 	# Attempt to reauthenticate if the user presses auth button
-	# warning-ignore:return_value_discarded
 	if not start_menu.is_connected("pressed", self, "authenticate_user"):
-		start_menu.connect("pressed", self, "authenticate_user")
+		var e := start_menu.connect("pressed", self, "authenticate_user")
+		Utils.print_error_code(e)
 
 func on_auth_success() -> void:
 	if start_menu.is_connected("pressed", self, "authenticate_user"):
 		start_menu.disconnect("pressed", self, "authenticate_user")
+	
+	logout_button.show()
 
+	hide_SetUsernamePopup()
+	
 	debug_panel.text = "AUTH_SUCCESS"
-# warning-ignore:return_value_discarded
-	start_menu.connect("pressed", self, "on_startgame_pressed")
 
-func save_guest_user_details_to_local(username: String) -> void:
-	if user.identity["id"] == "":
-		user.identity["id"] = username
+	var e := start_menu.connect("pressed", self, "on_startgame_pressed")
+	Utils.print_error_code(e)
 
-	if user.identity["device_id"] == "":
-		user.identity["device_id"] = device_id
-# warning-ignore:return_value_discarded
-	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)
+func on_startgame_pressed():
+	# Add Lobby Scene
+	var lobby_scene = load("res://Scenes/Main/LobbyScene.tscn").instance()
+	add_child(lobby_scene)
+
+	# Remove StartMenu
+	get_node("StartMenu").queue_free()
 #
-#func on_startgame_pressed():
-#	# Add Lobby Scene
-#	var lobby_scene = load("res://Scenes/Main/LobbyScene.tscn").instance()
-#	add_child(lobby_scene)
-#
-#	# Remove StartMenu
-#	get_node("StartMenu").queue_free()
-#
-#func on_end_game_pressed():
-#	Utils.remove_all_signals(start_menu)
-#
-#	var is_linked = server_connection.is_linked_account(user.identity["device_id"])
-#	var result : int = OK
-#
-#	if not is_linked:
-#		var _test = server_connection.create_guest_linked_account(user.identity)
-##		server_connection.logout_async()
-#
-##	server_connection.logout_async()
-#
-#	if result == OK:
-#		debug_panel.text = "LOGOUT_SUCCESS"
-#	else:
-#		debug_panel.text = "LOGOUT_FAILED"
+func on_end_game_pressed():
+	Utils.remove_all_signals(start_menu)
+	var result := OK
+	
+	if user.identity["device_id"] != "":
+		var _test = server_connection.create_guest_linked_account(user.identity)
+#		server_connection.logout_async()
+
+	if result == OK:
+		debug_panel.text = "LOGOUT_SUCCESS"
+	else:
+		debug_panel.text = "LOGOUT_FAILED"
+	
+	logout_button.hide()
+#	authenticate_user()

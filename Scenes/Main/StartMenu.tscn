@@ -75,13 +75,14 @@ text = "<SERVER_CODE>
 <SERVER_MSG>"
 
 [node name="VBRight" type="VBoxContainer" parent="Background/M/VB/HB"]
-margin_left = 1655.0
+margin_left = 1860.0
 margin_right = 1860.0
 margin_bottom = 100.0
 size_flags_horizontal = 10
 alignment = 2
 
 [node name="LogoutButton" type="Button" parent="Background/M/VB/HB/VBRight"]
+visible = false
 margin_top = 45.0
 margin_right = 205.0
 margin_bottom = 100.0

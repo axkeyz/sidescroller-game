@@ -32,9 +32,17 @@ func authenticate_async(email: String, password: String, register := false) -> i
 	
 	return result
 
-func logout_async() -> void:	
-# warning-ignore:return_value_discarded
-	_client.session_logout_async(_session)
+func logout_async() -> int:
+	var error : int = OK
+	
+	var result : NakamaAsyncResult = yield(
+		_client.session_logout_async(_session), "completed"
+	)
+
+	if result.is_exception():
+		error = FAILED
+	
+	return error
 
 func update_async_result(session: NakamaSession, result: int) -> int:
 	if not session.is_exception():
@@ -44,35 +52,24 @@ func update_async_result(session: NakamaSession, result: int) -> int:
 	
 	return result
 
-func is_linked_account(device_id) -> bool:
-	if device_id != "":
-		return false
-	return true
 
 func create_guest_linked_account(user: Dictionary) -> int:
 	var error = FAILED
 	
 	var result : NakamaAsyncResult = yield(
-		_client.link_custom_async(_session, user["id"]), "completed"
+		_client.link_custom_async(_session, user["id"]+"$"+device_id), "completed"
 	)
 	
 	if not result.is_exception():
-		error = unlink_device_id(user)
+		result = yield(
+			_client.unlink_device_async(_session, device_id), "completed"
+		)
+		
+		if not result.is_exception():
+			reset_user_details()
+			error = OK
 	
 	return error
-
-func unlink_device_id(user: Dictionary) -> int:
-	var result := OK
-	
-	var new_session : NakamaSession = yield(
-		_client.unlink_device_async(_session, user["device_id"]), "completed"
-	)
-	
-	_session = new_session
-	
-	result = update_async_result(new_session, result)
-	
-	return result
 
 func save_user_details(username: String) -> void:
 	var user := load("res://Resources/User/UserDetails.tres")
@@ -83,6 +80,16 @@ func save_user_details(username: String) -> void:
 		user.identity["device_id"] = device_id
 	
 	user.identity["guest"] = false
+	
+# warning-ignore:return_value_discarded
+	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)
+
+func reset_user_details() -> void:
+	var user := load("res://Resources/User/UserDetails.tres")
+	
+	user.identity["id"] = ""
+	user.identity["device_id"] = ""
+	user.identity["guest"] = true
 	
 # warning-ignore:return_value_discarded
 	ResourceSaver.save("res://Resources/User/UserDetails.tres", user)

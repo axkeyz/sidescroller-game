@@ -73,7 +73,7 @@ custom_colors/font_color = Color( 0.929412, 0.929412, 0.929412, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "USERNAME#0088"
 
-[node name="UserIDLabel" type="Label" parent="M/H/V"]
+[node name="UserLevelLabel" type="Label" parent="M/H/V"]
 margin_top = 57.0
 margin_right = 299.0
 margin_bottom = 87.0

@@ -1,10 +1,15 @@
 extends Node2D
 
+var user_details := preload("res://Resources/User/UserDetails.tres")
 var user_settings := preload("res://Resources/User/UserSettings.tres")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	update_username()
 	set_lobby_sprite()
+
+func update_username() -> void:
+	$LobbyUI/M/V/HeaderContainer/UserStatsContainer/UsernameButton/M/H/V/UsernameLabel.text = user_details.identity["id"]
 
 # set_lobby_sprite sets the lobby sprite according to user setting
 func set_lobby_sprite() -> void:
