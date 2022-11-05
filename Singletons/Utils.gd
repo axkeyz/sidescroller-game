@@ -48,6 +48,18 @@ static func has_punctuation(s: String) -> bool:
 		
 	return false
 
+static func has_forbidden_words(s: String) -> bool:
+	var forbidden : Array = [
+		"admin", "official", "staff", "员工", "职员", "官方",
+		"正式", "員工", "職員", "工作", "仕事", "adm1n", "off1c",
+	]
+	
+	for f in forbidden:
+		if f in s:
+			return true
+	
+	return false
+
 static func print_error_code(e) -> void:
 	if e != OK:
 		print(e)

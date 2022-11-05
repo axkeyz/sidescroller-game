@@ -18,10 +18,10 @@ func on_update_username(new_text: String) -> void:
 func _on_RegisterUsernameButton_pressed() -> void:
 	if not $M/V/Start/V/TOSCheckbox.pressed:
 		warning_label.text = "You must agree to the terms and conditions."
-	elif username == "":
-		warning_label.text = "A username is required."
-	elif Utils.has_punctuation(username):
-		warning_label.text = "Username contains forbidden characters."
+	elif len(username) < 3 or len(username) > 12:
+		warning_label.text = "Username must be between 3 to 12 characters."
+	elif Utils.has_punctuation(username) or Utils.has_forbidden_words(username):
+		warning_label.text = "Contains forbidden characters or words."
 	else:
 		warning_label.text = ""
 		emit_signal("register_username", username)

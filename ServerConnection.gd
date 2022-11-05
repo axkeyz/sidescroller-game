@@ -15,7 +15,10 @@ func guest_login_async(username: String, is_guest: bool) -> int:
 		_client.authenticate_device_async(device_id, username, is_guest), "completed"
 	)
 	
-	save_user_details(new_session.username)
+	if new_session.is_exception():
+		get_parent().get_node("StartMenu/SetUsernamePopup/M/V/Start/V/WarningLabel").text = "%s" % new_session.get_exception().message
+	else:
+		save_user_details(new_session.username)
 
 	result = update_async_result(new_session, result)
 
