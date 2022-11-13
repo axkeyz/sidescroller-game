@@ -29,6 +29,10 @@ func start_create_guest_account() -> void:
 		var error = start_menu.connect("pressed", self, "show_SetUsernamePopup")
 		Utils.print_error_code(error)
 
+func authenticate_by_device(username: String) -> void:
+	var result : int = yield(server_connection.guest_login_async(username, user.identity["guest"]), "completed")
+	read_auth_result(result)
+
 func show_SetUsernamePopup() -> void:
 	$StartMenu/SetUsernamePopup.visible = true
 	
@@ -41,16 +45,6 @@ func hide_SetUsernamePopup() -> void:
 	if start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
 		start_menu.disconnect("pressed", self, "show_SetUsernamePopup")
 		$StartMenu/SetUsernamePopup.visible = false
-
-func authenticate_by_device(username: String) -> void:
-	var result : int = yield(server_connection.guest_login_async(username, user.identity["guest"]), "completed")
-	read_auth_result(result)
-#
-func read_auth_result(result: int) -> void:
-	if result == OK:
-		on_auth_success()
-	else:
-		on_auth_failed()
 
 func on_auth_failed() -> void:
 	debug_panel.text = "AUTH_FAILED"
@@ -72,6 +66,12 @@ func on_auth_success() -> void:
 
 	var e := start_menu.connect("pressed", self, "on_startgame_pressed")
 	Utils.print_error_code(e)
+
+func read_auth_result(result: int) -> void:
+	if result == OK:
+		on_auth_success()
+	else:
+		on_auth_failed()
 
 func on_startgame_pressed():
 	# Add Lobby Scene
