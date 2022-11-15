@@ -20,6 +20,7 @@ __meta__ = {
 }
 
 [node name="PressToStartLabel" type="Label" parent="Background"]
+visible = false
 margin_left = 233.0
 margin_top = 800.0
 margin_right = 1685.0

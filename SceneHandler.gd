@@ -24,6 +24,11 @@ func authenticate_user():
 	else:
 		authenticate_by_device(user.identity["id"])
 
+func reauthenticate_user():
+	start_menu.get_node("PressToStartLabel").text = "Reauthenticating..."
+	
+	authenticate_user()
+
 func start_create_guest_account() -> void:
 	if not start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
 		var error = start_menu.connect("pressed", self, "show_SetUsernamePopup")
@@ -48,10 +53,13 @@ func hide_SetUsernamePopup() -> void:
 
 func on_auth_failed() -> void:
 	debug_panel.text = "AUTH_FAILED"
+	start_menu.get_node("PressToStartLabel").show()
+	
+	start_menu.get_node("PressToStartLabel").text = "AUTH_FAILED: Press to reauthenticate"
 
 	# Attempt to reauthenticate if the user presses auth button
-	if not start_menu.is_connected("pressed", self, "authenticate_user"):
-		var e := start_menu.connect("pressed", self, "authenticate_user")
+	if not start_menu.is_connected("pressed", self, "reauthenticate_user"):
+		var e := start_menu.connect("pressed", self, "reauthenticate_user")
 		Utils.print_error_code(e)
 
 func on_auth_success() -> void:
@@ -63,6 +71,7 @@ func on_auth_success() -> void:
 	hide_SetUsernamePopup()
 	
 	debug_panel.text = "AUTH_SUCCESS"
+	start_menu.get_node("PressToStartLabel").show()
 
 	var e := start_menu.connect("pressed", self, "on_startgame_pressed")
 	Utils.print_error_code(e)
