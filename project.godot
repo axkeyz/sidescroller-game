@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Container",
-"class": "BannerCarousel",
-"language": "GDScript",
-"path": "res://Singletons/BannerCarousel.gd"
-}, {
 "base": "Reference",
 "class": "NakamaAPI",
 "language": "GDScript",
@@ -100,7 +95,6 @@ _global_script_classes=[ {
 "path": "res://Singletons/Utils.gd"
 } ]
 _global_script_class_icons={
-"BannerCarousel": "",
 "NakamaAPI": "",
 "NakamaAsyncResult": "",
 "NakamaClient": "",
@@ -129,6 +123,10 @@ config/icon="res://icon.png"
 [autoload]
 
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
+
+[debug]
+
+settings/stdout/verbose_stdout=true
 
 [display]
 

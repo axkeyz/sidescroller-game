@@ -50,6 +50,12 @@ func hide_SetUsernamePopup() -> void:
 	if start_menu.is_connected("pressed", self, "show_SetUsernamePopup"):
 		start_menu.disconnect("pressed", self, "show_SetUsernamePopup")
 		$StartMenu/SetUsernamePopup.visible = false
+		
+func read_auth_result(result: int) -> void:
+	if result == OK:
+		on_auth_success()
+	else:
+		on_auth_failed()
 
 func on_auth_failed() -> void:
 	debug_panel.text = "AUTH_FAILED"
@@ -76,21 +82,15 @@ func on_auth_success() -> void:
 	var e := start_menu.connect("pressed", self, "on_startgame_pressed")
 	Utils.print_error_code(e)
 
-func read_auth_result(result: int) -> void:
-	if result == OK:
-		on_auth_success()
-	else:
-		on_auth_failed()
-
-func on_startgame_pressed():
+func on_startgame_pressed() -> void:
 	# Add Lobby Scene
 	var lobby_scene = load("res://Scenes/Main/LobbyScene.tscn").instance()
 	add_child(lobby_scene)
 
 	# Remove StartMenu
 	get_node("StartMenu").queue_free()
-#
-func on_end_game_pressed():
+
+func on_end_game_pressed() -> void:
 	Utils.remove_all_signals(start_menu)
 	
 	var result := OK
