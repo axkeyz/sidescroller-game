@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="BattleFightGrid" type="TileMap"]
+position = Vector2( 0, -150 )
+rotation = -0.462512
+mode = 1
+cell_size = Vector2( 450, 220 )
+format = 1

@@ -1,0 +1,21 @@
+[gd_scene format=2]
+
+[node name="TeamIcon" type="ColorRect"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 150, 200 )
+color = Color( 0, 0, 0, 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 1134.0
+margin_bottom = 2247.0
+rect_min_size = Vector2( 150, 200 )
+rect_scale = Vector2( 1e-05, 1e-05 )
+rect_clip_content = true
+size_flags_horizontal = 0
+size_flags_vertical = 0
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}

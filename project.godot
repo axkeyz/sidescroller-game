@@ -124,10 +124,6 @@ config/icon="res://icon.png"
 
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 
-[debug]
-
-settings/stdout/verbose_stdout=true
-
 [display]
 
 window/size/width=1920
@@ -146,6 +142,7 @@ swipe=false
 scroll=false
 smooth=false
 assetl=false
+verbose=false
 
 [input_devices]
 
