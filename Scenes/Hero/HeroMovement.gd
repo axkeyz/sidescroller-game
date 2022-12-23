@@ -22,7 +22,7 @@ export (Dictionary) var stats = {
 }
 
 #signal hp_depleted
-signal deploy_success
+signal hero_deployed(success)
 
 #func _ready():
 #	connect("deploy_success", self, "set_pos_x", [])
@@ -38,9 +38,10 @@ func deploy(total_cost : float, pos_x : float) -> void:
 	if total_cost >= deploy_cost:
 		is_deployed = true
 		set_pos_x(pos_x)
-		emit_signal("deploy_success")
+		emit_signal("hero_deployed", true)
 	else:
 		is_deployed = false
+		emit_signal("hero_deployed", false)
 
 func run(delta):
 	var path_position = get_global_mouse_position()
